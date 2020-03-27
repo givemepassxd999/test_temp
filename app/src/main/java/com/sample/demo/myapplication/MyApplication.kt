@@ -12,7 +12,7 @@ class MyApplication : Application() {
             // Android context
             androidContext(this@MyApplication)
             // modules
-            val list = listOf(myModule, repoModule)
+            val list = listOf(myModule)
             modules(list)
         }
     }

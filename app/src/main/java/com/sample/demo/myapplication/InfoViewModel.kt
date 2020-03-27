@@ -1,39 +1,32 @@
 package com.sample.demo.myapplication
 
-import android.annotation.SuppressLint
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class InfoViewModel(application: Application, var infoRepository: InfoRepository) : AndroidViewModel(application) {
+class InfoViewModel() : ViewModel() {
+    suspend fun step1(isSuccess: Boolean) = withContext(Dispatchers.IO) {
+        if (isSuccess) {
+            Log.d("rick", "step1")
+        } else {
+            Log.d("rick", "step1 nothing")
+        }
+    }
 
-    val testLiveData = MutableLiveData<Boolean>()
-    @SuppressLint("CheckResult")
-    fun test(owner: LifecycleOwner, callback: LiveData<Boolean>) {
-        Observable.just(1)
-            .subscribeOn(Schedulers.newThread())
-            .map {
-                Log.d("rick", "a")
-                it
-            }
-            .map {
-                Log.d("rick", "b")
-                it
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                testLiveData.value = true
-                callback.observe(owner, Observer {
-                    //do something
-                    if(it) {
-                        Log.d("rick", "c")
-                    } else{
-                        Log.d("rick", "nothing")
-                    }
-                })
-            }
+    suspend fun step2(isSuccess: Boolean) = withContext(Dispatchers.IO) {
+        if (isSuccess) {
+            Log.d("rick", "step2")
+        } else {
+            Log.d("rick", "step2 nothing")
+        }
+    }
+
+    suspend fun step3(isSuccess: Boolean) = withContext(Dispatchers.IO) {
+        if (isSuccess) {
+            Log.d("rick", "step3")
+        } else {
+            Log.d("rick", "step3 nothing")
+        }
     }
 }
